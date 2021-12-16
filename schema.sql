@@ -4,3 +4,10 @@
 -- CREATE YOUR DATABASE
 -- CREATE YOUR TABLES
 -- ADD RECORDS TO YOUR TABLE
+
+
+DROP DATABASE IF EXISTS cowlist;
+CREATE DATABASE cowlist;
+
+USE cowlist;
+CREATE TABLE cows (name text, description text);
