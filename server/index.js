@@ -21,14 +21,16 @@ app.post('/cows', (req, res) => {
   let params = [req.body.name, req.body.description]
   db.connection.query(sqlQuery, params, (error, results, fields) => {
     if (error) {
-      return console.error(error.message);
+      console.error(error.message);
+      return;
     }
     console.log('params:',params)
     console.log('results', results);
+    res.send(req.body)
+
   });
 
   // db.connection.end();
-  res.send(201)
 
 })
 
@@ -47,6 +49,34 @@ app.get('/cows', (req, res) => {
   })
 
 
+})
+
+app.put('/cows/:id', (req, res) => {
+
+  console.log('id: ',req.params.id)
+  var sqlQuery = `UPDATE cows SET name = '${req.body.name}', description = '${req.body.description}' WHERE id = ${req.params.id}`
+  db.connection.query(sqlQuery, (err, results) => {
+    if (err) {
+      console.error(err)
+
+    } else {
+      var cow = {name: req.body.name, description: req.body.description, id: req.body.id}
+      console.log(results)
+      res.send(cow)
+    }
+  })
+});
+
+app.delete('/cows/:id', (req, res) => {
+  var sqlQuery = `DELETE from cows where id = ${req.params.id}`
+  db.connection.query(sqlQuery, (err, results)=> {
+    if (err) {
+      console.error(err)
+    }
+    else {
+      res.send('successfully deleted')
+    }
+  })
 })
 
 

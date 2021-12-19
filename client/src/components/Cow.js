@@ -9,7 +9,9 @@ class Cow extends React.Component {
   }
   render() {
     return(
-      <li onClick = {() => {this.props.handleCowClick(this.props.index)}}>{this.props.cow.name}</li>
+      <li onClick = {() => {this.props.handleCowClick(this.props.index)}}>{this.props.cow.name}
+      <button onClick = {() => {this.props.handleDelete(this.props.index)}}>Delete</button>
+      </li>
     )
   }
 }
